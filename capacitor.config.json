@@ -1,0 +1,6 @@
+{
+  "appId": "com.nextcapacitro.app",
+  "appName": "next-capacitor",
+  "webDir": "out",
+  "bundledWebRuntime": false
+}

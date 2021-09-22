@@ -1,8 +1,50 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import { Camera, CameraResultType } from "@capacitor/camera";
+
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  // const takePhoto = async () => {
+  //   const result = await CameraPreview.capture(cameraPreviewPictureOptions);
+  //   console.log({ result });
+
+  //   // setImage([...images, `data:image/jpeg;base64,${result.value}`]);
+
+  //   // image.setAttribute("alt", "script div");
+  //   // image.setAttribute("src", `data:image/jpeg;base64,${result.value}`);
+  //   // let c = document.createElement("canvas");
+  //   // let ctx = c.getContext("2d");
+  //   // if (ctx) {
+  //   //   ctx.canvas.width = 500;
+  //   //   ctx.canvas.height = 500;
+  //   //   ctx.drawImage(image, 0, 0);
+  //   //   var imgInfo = c.toDataURL("image/png");
+  //   //   console.log({ imgInfo });
+  //   // }
+  // };
+  // React.useEffect(() => {
+  //   CameraPreview.start({
+  //     parent: "content",
+  //     toBack: true,
+  //     position: "front",
+  //   });
+  // }, []);
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri,
+    });
+
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    var imageUrl = image.webPath;
+    console.log({ image });
+    // Can be set to the src of an image now
+    // imageElement.src = imageUrl;
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -15,55 +57,19 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+        <button onClick={takePicture}>Take Photo</button>
       </footer>
     </div>
-  )
+  );
+}
+
+export async function getStaticProps({ params }) {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+
+  // Pass post data to the page via props
+  return { props: { a: "hi" } };
 }
