@@ -2,5 +2,8 @@
 	"appId": "com.nextcapacitro.app",
 	"appName": "next-capacitor",
 	"webDir": "out",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"server": {
+		"url": "https://confident-kilby-f04655.netlify.app/"
+	}
 }
